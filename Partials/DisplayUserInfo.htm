@@ -1,0 +1,93 @@
+﻿<div ng-controller="DisplayUserInfoCtrl">
+    <style>
+        .mdl-data-table th
+        {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <tr>
+            <td colspan="9"><input type="text" name="search" ng-model="searchText"/></td>
+        </tr>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">
+                Edit
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'middlename'; sortReverse = !sortReverse">Name <span
+                    ng-show="sortType == 'middlename' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'middlename' && sortReverse" class="icon material-icons">
+                        arrow_drop_down</span> </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'DOB'; sortReverse = !sortReverse">DOB <span ng-show="sortType == 'DOB' && !sortReverse"
+                    class="icon material-icons">arrow_drop_up</span> <span ng-show="sortType == 'DOB' && sortReverse"
+                        class="icon material-icons">arrow_drop_down</span> </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'Gender'; sortReverse = !sortReverse">Gender <span
+                    ng-show="sortType == 'Gender' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'Gender' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'country'; sortReverse = !sortReverse">Country <span
+                    ng-show="sortType == 'country' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'country' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'state'; sortReverse = !sortReverse">State <span
+                    ng-show="sortType == 'state' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'state' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'district'; sortReverse = !sortReverse">District <span
+                    ng-show="sortType == 'district' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'district' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'taluka'; sortReverse = !sortReverse">Taluka <span
+                    ng-show="sortType == 'taluka' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'taluka' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                Location
+            </th>
+        </tr>
+        <tr ng-repeat="user in userList | orderBy:sortType:sortReverse | filter:searchText">
+            <td class="mdl-data-table__cell--non-numeric">
+                <a href="#EditUserInfoDetails" data="{{user._id}}" ng-click="LoadElement($event)">Edit</a>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.firstname+' '+user.middlename+' '+user.lastname}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.DOB}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.Gender}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.country}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.state}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.district}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{user.taluka}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <span ng-repeat="location in user.Location"><b>{{$index+1}}.{{location}}</b><br />
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>

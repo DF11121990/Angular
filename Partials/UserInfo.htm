@@ -1,0 +1,296 @@
+﻿<div ng-app="userInfoApp">
+    <form name="userInfo" ng-submit="SaveUserInfoDetails()" novalidate>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <tr>
+            <th colspan="4">
+                <h1>
+                    User Information</h1>
+            </th>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                First Name
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="text" ng-model="user.firstname" name="firstname" id="FirstName" ng-minlength="3"
+                    ng-maxlength="10" ng-pattern="/^[a-zA-Z]*$/" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.firstname.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>First Name is required
+                    </div>
+                    <div ng-message="minlength">
+                        <sup>*</sup>First Name is short
+                    </div>
+                    <div ng-message="maxlength">
+                        <sup>*</sup>First Name is Too Long
+                    </div>
+                    <div ng-message="pattern">
+                        <sup>*</sup>First Name is not valid
+                    </div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Middle Name
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="text" ng-model="user.middlename" name="middlename" id="MiddleName" ng-minlength="3"
+                    ng-maxlength="10" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.middlename.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Middle Name is required
+                    </div>
+                    <div ng-message="minlength">
+                        <sup>*</sup>Middle Name is short
+                    </div>
+                    <div ng-message="maxlength">
+                        <sup>*</sup>Middle Name is Too Long
+                    </div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Last Name
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="text" ng-model="user.lastname" name="lastname" id="LastName" ng-minlength="3"
+                    ng-maxlength="10" min="3" max="10" ng-pattern="/^[a-zA-Z]*$/" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.lastname.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Last Name is required
+                    </div>
+                    <div ng-message="minlength">
+                        <sup>*</sup>Last Name is short
+                    </div>
+                    <div ng-message="maxlength">
+                        <sup>*</sup>Last Name is Too Long
+                    </div>
+                    <div ng-message="pattern">
+                        <sup>*</sup>Last Name is not valid
+                    </div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Date of Birth {{user.DOB | date:"short"}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="date" ng-model="user.DOB" name="DOB" id="DOB" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.DOB.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Date of Birth is required
+                    </div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Email
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="email" ng-model="user.email" name="email" id="email" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.email.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Email is required</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Country
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <select id="country" name="country" ng-model="user.country" ng-change="LoadStates(user.country)"
+                    required>
+                    <option ng-repeat="currentcountry in countryList" value="{{currentcountry.CountryName}}">
+                        {{currentcountry.CountryName}}</option>
+                </select>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div ng-messages="userInfo.country.$error" class="error">
+                            <p ng-message="required">
+                                Country is required</p>
+                        </div>
+                    </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                State
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <select id="state" name="state" ng-model="user.state" ng-change="LoadDistricts(user.state)"
+                    required>
+                    <option ng-repeat="currentstate in stateList" value="{{currentstate.StateName}}">{{currentstate.StateName}}</option>
+                </select><td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div ng-messages="userInfo.state.$error" class="error">
+                            <p ng-message="required">
+                                State is required</p>
+                        </div>
+                    </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                District
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <select id="district" name="district" ng-model="user.district" ng-change="LoadTalukas(user.district)"
+                    required>
+                    <option ng-repeat="currentdistrict in districtList" value="{{currentdistrict.DistrictName}}">
+                        {{currentdistrict.DistrictName}}</option>
+                </select><td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div ng-messages="userInfo.district.$error" class="error">
+                            <p ng-message="required">
+                                District is required</p>
+                        </div>
+                    </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Taluka
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <select id="taluka" name="taluka" ng-model="user.taluka" required>
+                    <option ng-repeat="currenttaluka in talukaList" value="{{currenttaluka.TalukaName}}">
+                        {{currenttaluka.TalukaName}}</option>
+                </select><td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div ng-messages="userInfo.taluka.$error" class="error">
+                            <p ng-message="required">
+                                Taluka is required</p>
+                        </div>
+                    </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Gender
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <label>
+                    <input type="radio" ng-model="user.Gender" name="Gender" value="Male" required>
+                    Male
+                </label>
+                <br />
+                <label>
+                    <input type="radio" ng-model="user.Gender" name="Gender" value="Female" required>
+                    Female
+                </label>
+                <br />
+                <td class="mdl-data-table__cell--non-numeric">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <div ng-messages="userInfo.Gender.$error" class="error">
+                            <p ng-message="required">
+                                Gender is required</p>
+                        </div>
+                    </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Password
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="text" ng-model="user.Password" name="Password" id="Password" ng-pattern="/^[a-zA-Z0-9]*$/"
+                    required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.Password.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Password is required
+                    </div>
+                    <div ng-message="pattern">
+                        <sup>*</sup>Password is not valid
+                    </div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                Confirm Password
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="text" ng-model="user.ConfirmPassword" name="ConfirmPassword" id="ConfirmPassword"
+                    ng-pattern="/^[a-zA-Z0-9]*$/" required />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <div ng-messages="userInfo.ConfirmPassword.$error" class="error">
+                    <div ng-message="required">
+                        <sup>*</sup>Confirm Password is required
+                    </div>
+                    <div ng-message="pattern">
+                        <sup>*</sup>Confirm Password is not valid
+                    </div>
+                </div>
+                <div id="IsPasswordMatch">
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                &nbsp;
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <label for="LocationPreference">
+                    Location Preference</label>
+                <div class="col-sm-9">
+                    <div class="checkbox checkbox-styled" ng-repeat="d in stateList" value="d.StateName">
+                        <label>
+                            <input type="checkbox" checkbox-group name="locationPreference" ng-disabled="LocationPrefrenceChecked.length == 3"
+                                required />
+                            <span>{{d.StateName}}</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="IsCheckBoxChecked" style="color: red">
+                </div>
+                <div style="white-space: nowrap; left: auto;" class="help-block" ng-messages="userInfo.locationPreference.$error"
+                    ng-if="ReservationForm.PersonWithDisabilityYesOrNO.$error && !ReservationForm.PersonWithDisabilityYesOrNO.$pristine">
+                    <div class="help-block" ng-message="required">
+                        Select Candidate Location Preference.</div>
+                </div>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+                &nbsp;
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="submit" name="Submit" id="submit" value="Submit" ng-disabled="userInfo.$invalid" />
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>

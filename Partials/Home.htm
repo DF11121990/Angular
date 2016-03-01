@@ -1,0 +1,24 @@
+﻿<div ng-repeat="product in productList">
+    <table>
+        <tr>
+            <td>
+                <i class="material-icons">android</i>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{product.ProductName}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{product.ProductPrice}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="" id="{{product._id.$oid}}" ng-click="addToCart($event)">Add to Cart</a>
+            </td>
+        </tr>
+    </table>
+</div>

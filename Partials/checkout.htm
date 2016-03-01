@@ -1,0 +1,66 @@
+﻿<div ng-controller="checkoutCtrl">
+    <style>
+        .mdl-data-table th
+        {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <tr>
+            <td colspan="9"><input type="text" name="search" ng-model="searchText"/></td>
+        </tr>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'ProductName'; sortReverse = !sortReverse">ProductName <span
+                    ng-show="sortType == 'ProductName' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'ProductName' && sortReverse" class="icon material-icons">
+                        arrow_drop_down</span> </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'ProductPrice'; sortReverse = !sortReverse">Product Price <span ng-show="sortType == 'ProductPrice' && !sortReverse"
+                    class="icon material-icons">arrow_drop_up</span> <span ng-show="sortType == 'ProductPrice' && sortReverse"
+                        class="icon material-icons">arrow_drop_down</span> </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                Quantity
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                <a href="" ng-click="sortType = 'total'; sortReverse = !sortReverse">Total <span
+                    ng-show="sortType == 'total' && !sortReverse" class="icon material-icons">arrow_drop_up</span>
+                    <span ng-show="sortType == 'total' && sortReverse" class="icon material-icons">arrow_drop_down</span>
+                </a>
+            </th>
+            <th class="mdl-data-table__cell--non-numeric">
+                Delete
+            </th>
+        </tr>
+        <tr ng-repeat="product in productList | orderBy:sortType:sortReverse | filter:searchText" ng-show="productList.length>0">
+            <td class="mdl-data-table__cell--non-numeric">
+                {{product.ProductName}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{product.ProductPrice}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <input type="number" ng-model="product.ProductCount" value="{{product.ProductCount}}"/>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                {{product.ProductCount * product.ProductPrice}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+                <a href="" id="{{product._id}}" ng-click="deleteitem($event)">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" ng-click="placeOrder()" value="Place Order" class="mdl-button mdl-js-button mdl-button--raised"/>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    
+</div>
